@@ -6,4 +6,5 @@ import react from "@astrojs/react";
 export default defineConfig({
   integrations: [react()],
   site: "https://joaquindicio.github.io",
+  base: "/manglar-de-bagheera",
 });

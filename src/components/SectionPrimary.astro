@@ -1,16 +1,10 @@
 ---
-const {
-  bg = "src/assets/fondo.jpg",
-  id,
-  padding = true,
-  cover = false,
-} = Astro.props;
+const { id, padding = true, cover = false, bg } = Astro.props;
 ---
 
 <section
   id={id}
-  style=`background-image:url("${bg}");`
-  class=`${cover ? "cover-applied" : ""} text-white text-center`
+  class=`${cover ? "cover-applied" : ""} ${bg? bg : ""} text-white text-center`
 >
   <div
     class=`d-flex flex-column align-items-center ${padding == true ? "padding-applied" : ""}`
@@ -23,6 +17,10 @@ const {
 <style>
   section {
     background-position: center;
+    background-image: url("./src/assets/fondo.jpg");
+  }
+  section.shows-bg {
+    background-image: url("./src/assets/shows.jpg");
   }
   .padding-applied {
     padding: 4rem 2rem;

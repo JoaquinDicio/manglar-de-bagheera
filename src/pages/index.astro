@@ -10,6 +10,9 @@ import PhotoCard from "../components/PhotoCard.astro";
 import InfoCard from "../components/InfoCard.astro";
 import Footer from "../components/Footer.astro";
 import "animate.css";
+import { Image } from "astro:assets";
+import instagramLogo from "../assets/instagram.webp";
+import whatsappLogo from "../assets/whatsapp.png";
 ---
 
 <Layout
@@ -95,11 +98,7 @@ import "animate.css";
         >Siguenos en Instagram para no perderte ninguno</strong
       >
       <a href="https://www.instagram.com/elmanglardebagheera/">
-        <img
-          class="social-icon"
-          src="./src/assets/instagram.webp"
-          alt="instagram logo"
-        />
+        <Image class="social-icon" src={instagramLogo} alt="instagram logo" />
       </a>
     </SectionPrimary>
     <SectionPrimary id="time-location">
@@ -126,21 +125,13 @@ import "animate.css";
       <div id="contacto">
         <Title firstLine="si necesitas" secondLine="hablar con nosotros" />
         <a target="_blank">
-          <img
-            src="./src/assets/whatsapp.png"
-            alt="whatsapp logo"
-            class="social-icon"
-          />
+          <Image src={whatsappLogo} alt="whatsapp logo" class="social-icon" />
         </a>
         <a
           target="_blank"
           href="https://www.instagram.com/elmanglardebagheera/"
         >
-          <img
-            src="./src/assets/instagram.webp"
-            alt="instagram logo"
-            class="social-icon"
-          />
+          <Image src={instagramLogo} alt="instagram logo" class="social-icon" />
         </a>
       </div>
     </SectionPrimary>
@@ -193,6 +184,7 @@ import "animate.css";
     }
     .social-icon {
       width: 70px;
+      height: fit-content;
     }
     #contacto {
       padding: 3rem 0;

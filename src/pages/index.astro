@@ -118,17 +118,20 @@ import whatsappLogo from "../assets/whatsapp.png";
       </InfoCard>
       <InfoCard title="ubicacion">
         <div class="card-content d-flex flex-column text-center text-white">
-          <strong>LUN a JUE</strong>
-          <p>12:00 - 01:30</p>
-        </div>
-        <div class="card-content text-white text-center">
-          <strong>VIE a DOM</strong>
-          <p>12:00 - 03:30</p>
+          <a
+            class="directions"
+            target="_blank"
+            href="https://www.google.com/maps/dir//Carrer+del+Festuc,+3,+46780+Oliva,+Valencia,+Espa%C3%B1a/@38.9371779,-0.1880369,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0xd61e7b0ebc26dad:0x86638f1296f4e71c!2m2!1d-0.105636!2d38.9372069?entry=ttu"
+            >COMO LLEGAR</a
+          >
         </div>
       </InfoCard>
       <div id="contacto">
         <Title firstLine="si necesitas" secondLine="hablar con nosotros" />
-        <a target="_blank">
+        <a
+          target="_blank"
+          href="https://wa.me/34601528001?text=Hola%20Manglar!%20Queria%20informacion%20sobre..."
+        >
           <Image src={whatsappLogo} alt="whatsapp logo" class="social-icon" />
         </a>
         <a
@@ -189,6 +192,14 @@ import whatsappLogo from "../assets/whatsapp.png";
     .social-icon {
       width: 70px;
       height: fit-content;
+    }
+    a.directions {
+      background-color: transparent;
+      border: 1px solid #ffff;
+      font-weight: 500;
+      padding: 1rem;
+      text-decoration: none;
+      color: #fff;
     }
     #contacto {
       padding: 3rem 0;

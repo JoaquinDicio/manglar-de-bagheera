@@ -14,4 +14,7 @@
 .swiper-slide img {
   display: block;
   width: 100%;
+  object-fit: cover;
+  height: 300px;
+  object-position: bottom;
 }

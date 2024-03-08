@@ -9,18 +9,22 @@ export default function Modal({ setShowModal }) {
     mensaje: "",
     error: false,
     success: false,
+    loading: false,
   });
-  const { nombre, email, mensaje, error, success } = formData;
+  const { nombre, email, mensaje, error, success, loading } = formData;
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (success) return;
+    if (success || loading) return;
     try {
+      handleFormChange(true, "loading");
       await addLeads(nombre, email, mensaje);
       handleFormChange(true, "success");
       handleFormChange(false, "error");
     } catch (err) {
       handleFormChange(err.message, "error");
+    } finally {
+      handleFormChange(false, "loading");
     }
   }
 
@@ -55,7 +59,7 @@ export default function Modal({ setShowModal }) {
         />
         {error && <i className="error">{error}</i>}
         <button className="submit" onClick={(e) => handleSubmit(e)}>
-          {!success ? "Quiero mi evento" : "ENVIADO"}
+          {loading ? "ENVIANDO..." : success ? "ENVIADO " : "QUIERO MI EVENTO"}
         </button>
         <button
           className="cancel"

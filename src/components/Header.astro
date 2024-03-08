@@ -1,9 +1,13 @@
 ---
 const { pages } = Astro.props;
+import { Image } from "astro:assets";
+import Logo from "../assets/logo.webp";
 ---
 
 <header class="d-flex align-items-center">
-  <p class="logo">Logo</p>
+  <a href="../"
+    ><Image src={Logo} alt="Logo manglar de bagheera" class="header-logo" /></a
+  >
   <svg
     id="toggle-menu"
     xmlns="http://www.w3.org/2000/svg"
@@ -37,11 +41,15 @@ const { pages } = Astro.props;
     width: 100%;
     top: 0;
     z-index: 100;
-    padding: 1rem;
+    padding: 1.5rem;
     justify-content: center;
     background-color: transparent;
     color: hsl(0, 0%, 100%);
     overflow: hidden;
+  }
+  .header-logo {
+    max-width: 50px;
+    height: 50px;
   }
   .solid-bg {
     background-color: #1d1d1d;
@@ -65,10 +73,8 @@ const { pages } = Astro.props;
   svg {
     width: 2rem;
   }
-  .responsive-menu-btn {
-    display: none;
-  }
-  .logo {
+  .responsive-menu-btn,
+  .header-logo {
     display: none;
   }
 
@@ -79,14 +85,14 @@ const { pages } = Astro.props;
     header {
       flex-wrap: wrap;
       justify-content: space-between;
-      padding: 1rem 2rem;
+      padding: 0.75rem 2rem;
     }
     .menu-animated {
       animation-name: menu-animation;
       animation-duration: 0.75s;
       animation-fill-mode: forwards;
     }
-    .logo {
+    .header-logo {
       display: block;
     }
     nav {
@@ -108,7 +114,7 @@ const { pages } = Astro.props;
         height: 70px;
       }
       to {
-        height: 280px;
+        height: 300px;
         background-color: #1d1d1d;
       }
     }

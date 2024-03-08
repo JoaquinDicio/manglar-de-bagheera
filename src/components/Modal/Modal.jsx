@@ -21,6 +21,7 @@ export default function Modal({ setShowModal }) {
       await addLeads(nombre, email, mensaje);
       handleFormChange(true, "success");
       handleFormChange(false, "error");
+      writeWhatsapp();
     } catch (err) {
       handleFormChange(err.message, "error");
     } finally {
@@ -30,6 +31,17 @@ export default function Modal({ setShowModal }) {
 
   function handleFormChange(value, key) {
     setFormData((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function writeWhatsapp() {
+    const base = "https://wa.me/34601528001?text=";
+    let msg;
+    if (mensaje.trim() !== "") {
+      msg = mensaje?.replace(" ", "%20");
+    } else {
+      msg = `Hola%20Manglar!%20mi%20nombre%20es%20${nombre}%20y%20quiero%20festejar%20mi%20evento%20con%20ustedes.`;
+    }
+    window.location.href = base + msg;
   }
 
   return (
@@ -58,9 +70,9 @@ export default function Modal({ setShowModal }) {
           onChange={(e) => handleFormChange(e.target.value, "mensaje")}
         />
         {error && <i className="error">{error}</i>}
-        <button className="submit" onClick={(e) => handleSubmit(e)}>
+        <a className="submit" onClick={(e) => handleSubmit(e)}>
           {loading ? "ENVIANDO..." : success ? "ENVIADO " : "QUIERO MI EVENTO"}
-        </button>
+        </a>
         <button
           className="cancel"
           onClick={(e) => {

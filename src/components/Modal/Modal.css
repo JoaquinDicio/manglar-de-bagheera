@@ -23,7 +23,8 @@ div.modal-container input {
   width: 100%;
   margin: 2px;
 }
-button {
+.cancel,
+a {
   border: none;
   cursor: pointer;
 }

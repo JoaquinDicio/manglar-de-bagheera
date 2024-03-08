@@ -1,10 +1,7 @@
 ---
-interface Props {
-  title: string;
-  description: string;
-}
+import Whatsapp from "../components/Whatsapp.astro";
 
-const { title, description } = Astro.props;
+const { title, description, whatsapp = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -20,6 +17,7 @@ const { title, description } = Astro.props;
   <body>
     <!-- slot is the same as childrens from react -->
     <slot />
+    {whatsapp && <Whatsapp href={whatsapp.href} />}
   </body>
 </html>
 <style is:global>

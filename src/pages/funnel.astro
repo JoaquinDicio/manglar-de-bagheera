@@ -1,0 +1,82 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Welcome from "../components/Welcome.astro";
+import Title from "../components/Title.astro";
+import BtnPrimary from "../components/ToggleModalBtn/ToggleModalBtn";
+import SectionPrimary from "../components/SectionPrimary.astro";
+import Footer from "../components/Footer.astro";
+import "animate.css";
+---
+
+<script></script>
+<Layout
+  title="El manglar de Bagheera - Eventos"
+  description="Excelente restaurante boliche con emocionantes shows en vivo."
+>
+  <main>
+    <Welcome />
+    <SectionPrimary id="welcome">
+      <Title firstLine="La fiesta de tus sueños" secondLine="Comienza aqui" />
+      <p>
+        Con <strong
+          >deliciosas opciones gastronómicas, tragos vibrantes y entretenimiento
+          de primera,</strong
+        > convertimos tu evento en una experiencia extraordinaria. ¡Tu celebración
+        perfecta comienza aquí!
+      </p>
+      <ul class="text-center text-white">
+        <li>
+          Celebra con estilo gracias a nuestro <br /><span
+            >ENTORNO ENERGETICO</span
+          >
+        </li>
+        <li>
+          Con nuestros platillos tu evento <br /><span
+            >SE TRANSFORMA EN FESTIN</span
+          >
+        </li>
+        <li>
+          Nuestro comprometido equipo <br /><span
+            >CONVIERTE TU EVENTO EN UN EXITO</span
+          >
+        </li>
+        <li>
+          Nosotros nos encargamos de todo <br /><span
+            >DISFRUTA SIN PREOCUPACIONES</span
+          >
+        </li>
+      </ul>
+      <BtnPrimary client:visible text={"quiero mi evento"} />
+    </SectionPrimary>
+  </main>
+  <Footer />
+</Layout>
+<!-- styles -->
+<style>
+  p {
+    padding: 3rem 0;
+    max-width: 600px;
+  }
+  ul {
+    padding: 4rem 2rem;
+    list-style: none;
+    background-color: #25252592;
+    margin-bottom: 2.5rem;
+    border: 1px solid var(--main-color);
+    box-shadow: 0px 0px 10px 1px var(--main-color);
+    width: 100%;
+    max-width: 600px;
+  }
+  li {
+    margin-bottom: 1.5rem;
+  }
+  span {
+    color: var(--main-color);
+    font-weight: bold;
+  }
+  @media (max-width: 375px) {
+    div {
+      padding: 4rem 1rem;
+    }
+  }
+</style>

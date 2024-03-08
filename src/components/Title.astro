@@ -1,0 +1,20 @@
+---
+const { firstLine, secondLine } = Astro.props;
+---
+
+<h2 class="text-white text-center">
+  {firstLine}<br />
+  <span>{secondLine}</span>
+</h2>
+
+<style>
+  h2 {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+  span {
+    background-color: var(--main-color);
+    padding: 4px 10px;
+  }
+</style>

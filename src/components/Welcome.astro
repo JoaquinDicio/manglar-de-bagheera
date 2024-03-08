@@ -1,0 +1,38 @@
+---
+import Logo from "./Logo.astro";
+import BtnPrimary from "./ToggleModalBtn/ToggleModalBtn";
+---
+
+<div class="bg">
+  <div class="low-opacity">
+    <div
+      class="animate__animated animate__fadeIn d-flex flex-column align-items-center welcome-content"
+    >
+      <Logo />
+      <h2 class="text-white text-center">
+        AMIGOS, SABORES Y MUSICA QUE TE HACE VIBRAR
+      </h2>
+      <BtnPrimary client:visible text={"Quiero mi evento"} />
+    </div>
+  </div>
+</div>
+
+<style>
+  div.bg {
+    background-image: url("../assets/eventos.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  div.low-opacity {
+    background-color: rgba(0, 0, 0, 0.65);
+  }
+  div.welcome-content {
+    padding: 4rem 3rem;
+    justify-content: space-evenly;
+    height: 100vh;
+  }
+  h2 {
+    font-weight: 400;
+  }
+</style>

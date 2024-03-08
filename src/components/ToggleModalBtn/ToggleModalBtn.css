@@ -1,0 +1,14 @@
+button.toggle-modal {
+  background-color: var(--main-color);
+  color: #ffff;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+button.toggle-modal:hover {
+  background-color: #c22370;
+  transition: 0.4s;
+}

@@ -1,0 +1,136 @@
+---
+const { pages } = Astro.props;
+---
+
+<header class="d-flex align-items-center">
+  <p class="logo">Logo</p>
+  <svg
+    id="toggle-menu"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    class="bi bi-list responsive-menu-btn"
+    viewBox="0 0 16 16"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+    ></path>
+  </svg>
+  <nav id="nav-menu-responsive" class="d-none">
+    <ul class="text-center">
+      {
+        pages.map((page) => (
+          <li>
+            <a class="text-white" href={page.href}>
+              {page.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    padding: 1rem;
+    justify-content: center;
+    background-color: transparent;
+    color: hsl(0, 0%, 100%);
+    overflow: hidden;
+  }
+  .solid-bg {
+    background-color: #1d1d1d;
+    transition-duration: 0.75s;
+  }
+  nav {
+    width: 100%;
+    max-width: 600px;
+  }
+  ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+  }
+  li {
+    cursor: pointer;
+  }
+  a {
+    text-decoration: none;
+  }
+  svg {
+    width: 2rem;
+  }
+  .responsive-menu-btn {
+    display: none;
+  }
+  .logo {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .responsive-menu-btn {
+      display: block;
+    }
+    header {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+    .menu-animated {
+      animation-name: menu-animation;
+      animation-duration: 0.75s;
+      animation-fill-mode: forwards;
+    }
+    .logo {
+      display: block;
+    }
+    nav {
+      max-width: none;
+      width: 100%;
+    }
+    ul {
+      flex-direction: column;
+    }
+    li {
+      padding: 0.5rem;
+    }
+    .d-none {
+      display: none;
+    }
+    /* menu animation */
+    @keyframes menu-animation {
+      from {
+        height: 70px;
+      }
+      to {
+        height: 280px;
+        background-color: #1d1d1d;
+      }
+    }
+  }
+</style>
+
+<script>
+  //menu respnosive logic
+  document.getElementById("toggle-menu")?.addEventListener("click", showMenu);
+  function showMenu() {
+    document.getElementById("nav-menu-responsive")?.classList.toggle("d-none");
+    document
+      .getElementsByTagName("header")[0]
+      .classList.toggle("menu-animated");
+  }
+  //dinamic header logic
+  window.onscroll = function () {
+    const header = document.getElementsByTagName("header")[0];
+    if (window.scrollY >= 100 && !header.classList.contains("solid-bg")) {
+      header.classList.add("solid-bg");
+    } else if (window.scrollY < 100) {
+      header.classList.remove("solid-bg");
+    }
+  };
+</script>

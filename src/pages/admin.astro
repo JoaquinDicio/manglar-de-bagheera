@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/Layout.astro";
+import getLeads from "../utils/getLeads.js";
+import AdminTable from "../components/AdminTable/AdminTable.jsx";
+let totalUsers = getTotalLeads() || 0;
+
+async function getTotalLeads() {
+  return (await getLeads()).length;
+}
+---
+
+<Layout title="Admin" description="Admin panel">
+  <section class="d-flex align-items-center flex-column">
+    <div class="dash-type dash-title">
+      <h2>Dashboard</h2>
+      <p class="total-users">
+        Se han registrado <span>{totalUsers}</span> clientes potenciales.
+      </p>
+    </div>
+    <div class="dash-type">
+      <h2>Datos registrados</h2>
+      <p>
+        Aqui podras ver los datos de aquellas personas que han completado el
+        formulario de tu sitio web.
+      </p>
+      <AdminTable client:visible />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  section {
+    background-color: #ebebeb;
+    width: 100%;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  div.dash-type {
+    max-width: 800px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #ffff;
+    padding: 2rem;
+  }
+  div.dash-title {
+    max-height: fit-content;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    margin-bottom: 0.75rem;
+  }
+  p.total-users {
+    font-weight: 500;
+    align-items: center;
+    color: var(--main-color);
+  }
+  span {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--main-color);
+    padding: 0.25rem;
+  }
+</style>

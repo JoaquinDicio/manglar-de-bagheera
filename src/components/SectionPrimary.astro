@@ -1,0 +1,38 @@
+---
+const {
+  bg = "src/assets/fondo.jpg",
+  id,
+  padding = true,
+  cover = false,
+} = Astro.props;
+---
+
+<section
+  id={id}
+  style=`background-image:url("${bg}");`
+  class=`${cover ? "cover-applied" : ""} text-white text-center`
+>
+  <div
+    class=`d-flex flex-column align-items-center ${padding == true ? "padding-applied" : ""}`
+  >
+    <!-- this render childrens -->
+    <slot />
+  </div>
+</section>
+
+<style>
+  section {
+    background-position: center;
+  }
+  .padding-applied {
+    padding: 4rem 2rem;
+  }
+  .cover-applied {
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  div {
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+</style>

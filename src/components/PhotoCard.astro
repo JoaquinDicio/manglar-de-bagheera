@@ -1,0 +1,38 @@
+---
+const { text, textButton, bg, href, blank = false } = Astro.props;
+---
+
+<div class="bg d-flex justify-content-center align-items-center">
+  <div class="low-opacity d-flex flex-column align-items-center">
+    <p class="text-center text-white">{text}</p>
+    <a class="text-white" target={blank && "_blank"} href={href}>{textButton}</a
+    >
+  </div>
+</div>
+
+<style>
+  p {
+    font-size: 1rem;
+    width: 60%;
+    font-weight: 400;
+  }
+  a {
+    padding: 0.5rem 2.5rem;
+    margin-top: 1rem;
+    border: 1px solid #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  a:hover {
+    background-color: #fff;
+    color: #1d1d1d;
+    transition: 0.5s;
+    cursor: pointer;
+  }
+  .bg {
+    background-color: black;
+    flex-grow: 1;
+    height: 320px;
+    min-width: 320px;
+  }
+</style>

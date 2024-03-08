@@ -1,0 +1,46 @@
+div.modal-container {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100%;
+}
+div.modal-container p {
+  margin-bottom: 1.5rem;
+}
+div.modal-container form {
+  background-color: #fff;
+  border-radius: 5px;
+  width: 300px;
+  padding: 2rem 3rem;
+  height: fit-content;
+}
+div.modal-container input {
+  border-radius: 5px;
+  border: 1px solid var(--main-color);
+  padding: 0.25rem;
+  width: 100%;
+  margin: 2px;
+}
+button {
+  border: none;
+  cursor: pointer;
+}
+.submit {
+  background-color: var(--main-color);
+  border-radius: 5px;
+  color: #fff;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+.cancel {
+  background-color: transparent;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+.error {
+  color: red;
+  font-size: 0.6rem;
+  text-align: center;
+}

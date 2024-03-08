@@ -6,6 +6,15 @@ import "./Slider.css";
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+const images = [
+  { src: "/place-3.webp", alt: "Logo del lugar en tono neon" },
+  { src: "/place-1.webp", alt: "sala de estar de Manglar" },
+  { src: "/place.webp", alt: "lamparas de Manglar" },
+  { src: "/place-2.webp", alt: "Sillas de Manglar" },
+  { src: "/place-5.webp", alt: "Mesas del sitio" },
+  { src: "/place-4.webp", alt: "show en el lugar con humo" },
+];
+
 export default function Slider() {
   return (
     <>
@@ -25,21 +34,11 @@ export default function Slider() {
         modules={[EffectCoverflow, Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <img src="/place-1.webp" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/place-2.webp" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/place-3.webp" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/place.webp" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/place-5.webp" />
-        </SwiperSlide>
+        {images.map((image) => (
+          <SwiperSlide>
+            <img src={image.src} alt={image.alt} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   );

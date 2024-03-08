@@ -6,8 +6,6 @@ import netlify from "@astrojs/netlify";
 // https://astro.build/config
 export default defineConfig({
   integrations: [react()],
-  site: "https://joaquindicio.github.io",
-  base: "/manglar-de-bagheera/",
   output: "server",
-  adapter: netlify()
+  adapter: netlify(),
 });

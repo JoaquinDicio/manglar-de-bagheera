@@ -90,7 +90,7 @@ import whatsappLogo from "../assets/whatsapp.png";
         href="#shows"
       />
     </section>
-    <SectionPrimary id="shows" bg="shows-bg" cover={true}>
+    <SectionPrimary id="shows">
       <Title firstLine="experimenta" secondLine="emocionantes shows" />
       <p class="text-white text-center">
         Adéntrate en el excitante mundo de la música, donde la energía
@@ -104,28 +104,31 @@ import whatsappLogo from "../assets/whatsapp.png";
       <a href="https://www.instagram.com/elmanglardebagheera/">
         <Image class="social-icon" src={instagramLogo} alt="instagram logo" />
       </a>
-    </SectionPrimary>
-    <SectionPrimary id="time-location">
-      <InfoCard title="horarios">
-        <div class="card-content d-flex flex-column text-center text-white">
-          <strong>LUN a JUE</strong>
-          <p>12:00 - 01:30</p>
-        </div>
-        <div class="card-content text-white text-center">
-          <strong>VIE a DOM</strong>
-          <p>12:00 - 03:30</p>
-        </div>
-      </InfoCard>
-      <InfoCard title="ubicacion">
-        <div class="card-content d-flex flex-column text-center text-white">
-          <a
-            class="directions"
-            target="_blank"
-            href="https://www.google.com/maps/dir//Carrer+del+Festuc,+3,+46780+Oliva,+Valencia,+Espa%C3%B1a/@38.9371779,-0.1880369,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0xd61e7b0ebc26dad:0x86638f1296f4e71c!2m2!1d-0.105636!2d38.9372069?entry=ttu"
-            >COMO LLEGAR</a
+      <section class="more-info">
+        <InfoCard title="horarios">
+          <div class="card-content d-flex flex-column text-center text-white">
+            <strong>LUN a JUE</strong>
+            <p>12:00 - 01:30</p>
+          </div>
+          <div class="card-content text-white text-center">
+            <strong>VIE a DOM</strong>
+            <p>12:00 - 03:30</p>
+          </div>
+        </InfoCard>
+        <InfoCard title="ubicacion">
+          <div
+            class="directions-card card-content d-flex flex-column text-center text-white"
           >
-        </div>
-      </InfoCard>
+            <p>Carrer del Festuc, 3, 46780 Oliva, Valencia, España</p>
+            <a
+              class="text-white text-center"
+              target="_blank"
+              href="https://www.google.com/maps/dir//Carrer+del+Festuc,+3,+46780+Oliva,+Valencia,+Espa%C3%B1a/@38.9371779,-0.1880369,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0xd61e7b0ebc26dad:0x86638f1296f4e71c!2m2!1d-0.105636!2d38.9372069?entry=ttu"
+              >CÓMO LLEGAR</a
+            >
+          </div>
+        </InfoCard>
+      </section>
       <div id="contacto">
         <Title firstLine="si necesitas" secondLine="hablar con nosotros" />
         <a
@@ -192,13 +195,18 @@ import whatsappLogo from "../assets/whatsapp.png";
       width: 70px;
       height: fit-content;
     }
-    a.directions {
-      background-color: transparent;
-      border: 1px solid #ffff;
-      font-weight: 500;
-      padding: 1rem;
+    section.more-info {
+      padding-top: 6rem;
+    }
+    .directions-card p {
+      padding: 1.75rem 0;
+    }
+    .directions-card a {
+      font-family: var(--main-font);
       text-decoration: none;
-      color: #fff;
+      border: 1px solid #ffff;
+      margin: 0 2rem;
+      padding: 0.5rem;
     }
     #contacto {
       padding: 3rem 0;

@@ -41,11 +41,11 @@ import whatsappLogo from "../assets/whatsapp.png";
           <Logo />
           <h2 class="text-center">DESCONECTAR, REIR Y PASARLO BIEN</h2>
           <div class="d-flex flex-column">
-            <PrimaryBtn text="Carta" />
+            <PrimaryBtn text="Menu" />
             <PrimaryBtn href="./funnel" text="Tu evento" />
             <PrimaryBtn href="#contacto" text="Contacto" />
           </div>
-          <svg
+          <sv
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             class="bi bi-arrow-down"
@@ -55,14 +55,14 @@ import whatsappLogo from "../assets/whatsapp.png";
               fill-rule="evenodd"
               d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"
             ></path>
-          </svg>
+          </sv>
         </div>
       </div>
     </section>
     <SectionPrimary id="nosotros" padding="false">
       <div class="common-padding">
         <Title firstLine="bienvenido al" secondLine="manglar de bagheera" />
-        <p class="text-center text-white">
+        <p class="text-center text-white secondary-font">
           En Bagheera fusionamos la emoción de la música en vivo con la
           deliciosa oferta gastronómica y la atmósfera aventurera de nuestro
           lugar. Somos más que un lugar, somos un escenario de experiencias
@@ -92,7 +92,7 @@ import whatsappLogo from "../assets/whatsapp.png";
     </section>
     <SectionPrimary id="shows">
       <Title firstLine="experimenta" secondLine="emocionantes shows" />
-      <p class="text-white text-center">
+      <p class="text-white text-center secondary-font">
         Adéntrate en el excitante mundo de la música, donde la energía
         contagiosa de los shows en vivo se entrelaza con la alegría de compartir
         momentos con amigos, deleitar el paladar con deliciosos platillos y
@@ -179,6 +179,9 @@ import whatsappLogo from "../assets/whatsapp.png";
     p {
       margin: 2rem 0;
     }
+    strong.cta {
+      font-size: 1.25rem;
+    }
     div.common-padding {
       padding: 4rem 2rem 2rem 2rem;
     }
@@ -199,10 +202,9 @@ import whatsappLogo from "../assets/whatsapp.png";
       padding-top: 6rem;
     }
     .directions-card p {
-      padding: 1.75rem 0;
+      padding: 1.5rem 0;
     }
     .directions-card a {
-      font-family: var(--main-font);
       text-decoration: none;
       border: 1px solid #ffff;
       margin: 0 2rem;

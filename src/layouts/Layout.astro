@@ -29,7 +29,7 @@ const { title, description, whatsapp = false } = Astro.props;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: "Poppins";
+    font-family: var(--main-font);
     scroll-behavior: smooth;
   }
   :root {
@@ -54,5 +54,8 @@ const { title, description, whatsapp = false } = Astro.props;
   }
   .text-center {
     text-align: center;
+  }
+  .secondary-font {
+    font-family: var(--secondary-font);
   }
 </style>

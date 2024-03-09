@@ -1,11 +1,8 @@
 ---
-const { id, padding = true, cover = false, bg } = Astro.props;
+const { id, padding = true, cover = false } = Astro.props;
 ---
 
-<section
-  id={id}
-  class=`${cover ? "cover-applied" : ""} ${bg? bg : ""} text-white text-center`
->
+<section id={id} class=`${cover ? "cover-applied" : ""} text-white text-center`>
   <div
     class=`d-flex flex-column align-items-center ${padding == true ? "padding-applied" : ""}`
   >
@@ -19,8 +16,9 @@ const { id, padding = true, cover = false, bg } = Astro.props;
     background-position: center;
     background-image: url("../assets/fondo.webp");
   }
-  section.shows-bg {
-    background-image: url("../assets/eventos.webp");
+  #shows {
+    background-image: url("../assets/shows-emcionantes.webp");
+    height: 100vh;
   }
   .padding-applied {
     padding: 4rem 2rem;
@@ -28,6 +26,12 @@ const { id, padding = true, cover = false, bg } = Astro.props;
   .cover-applied {
     background-size: cover;
     background-attachment: fixed;
+  }
+  #shows div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
   }
   div {
     margin: 0 auto;

@@ -45,14 +45,17 @@ const { text, textButton, href, blank = false } = Astro.props;
   }
   .bg:nth-child(1) {
     background-image: url("../assets/gastronomia.jpg");
+    content: "Gastronomia del lugar";
   }
   .bg:nth-child(2) {
     background-image: url("../assets/party-friends.webp");
     background-position: bottom;
+    content: "Festejo de evento con amigos";
   }
   .bg:nth-child(3) {
     background-image: url("../assets/shows.webp");
     background-position-y: -200px;
+    content: "Show de musica en vivo";
   }
 
   @media (max-width: 768px) {

@@ -1,7 +1,7 @@
 ---
 import Whatsapp from "../components/Whatsapp.astro";
 
-const { title, description, whatsapp = false } = Astro.props;
+const { title, description, whatsapp = false, keywords } = Astro.props;
 ---
 
 <!doctype html>
@@ -10,7 +10,12 @@ const { title, description, whatsapp = false } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image" href="../../public/favicon.png" />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Language" content="es" />
+    <meta http-equiv="generator" content={Astro.generator} />
+    <meta name="author" content="Joaquin Di cio" />
+    <meta name="keywords" content={keywords} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>

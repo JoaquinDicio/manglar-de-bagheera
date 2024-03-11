@@ -1,12 +1,9 @@
 ---
 const { pages } = Astro.props;
-import { Image } from "astro:assets";
-import Logo from "../assets/logo.webp";
 ---
 
 <header class="d-flex align-items-center">
-  <a href="../"
-    ><Image src={Logo} alt="Logo manglar de bagheera" class="header-logo" /></a
+  <a href="../" class="logo"><span>EL</span> MANGLAR <span>DE</span> BAGHEERA</a
   >
   <svg
     id="toggle-menu"
@@ -69,6 +66,17 @@ import Logo from "../assets/logo.webp";
   }
   a {
     text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  a.logo {
+    font-weight: bold;
+    visibility: hidden;
+  }
+
+  span {
+    font-size: 0.75rem;
   }
   svg {
     width: 2rem;
@@ -91,6 +99,9 @@ import Logo from "../assets/logo.webp";
       animation-name: menu-animation;
       animation-duration: 0.75s;
       animation-fill-mode: forwards;
+    }
+    .solid-bg a.logo {
+      visibility: visible;
     }
     .header-logo {
       display: block;

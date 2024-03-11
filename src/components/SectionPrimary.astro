@@ -1,10 +1,13 @@
 ---
-const { id, padding = true, cover = false } = Astro.props;
+const { id, padding = true, cover = false, bgSecondary = false } = Astro.props;
 ---
 
-<section id={id} class=`${cover ? "cover-applied" : ""} text-white text-center`>
+<section
+  id={id}
+  class=`${cover ? "cover-applied" : ""} text-white text-center ${bgSecondary&&'bg-secondary'}`
+>
   <div
-    class=`d-flex flex-column align-items-center ${padding == true ? "padding-applied" : ""}`
+    class=`d-flex flex-column align-items-center ${padding == true ? "padding-applied":"" }`
   >
     <!-- this render childrens -->
     <slot />
@@ -16,11 +19,17 @@ const { id, padding = true, cover = false } = Astro.props;
     background-position: center;
     background-image: url("../assets/fondo.webp");
   }
+  section.bg-secondary {
+    background-image: url("../assets/fondo-secondary.webp");
+  }
   .padding-applied {
     padding: 4rem 2rem;
   }
   .cover-applied {
     background-size: cover;
+  }
+  section#nosotros {
+    background-image: url("../../public/place-3.webp");
   }
   #shows div {
     display: flex;
@@ -29,6 +38,6 @@ const { id, padding = true, cover = false } = Astro.props;
   }
   div {
     margin: 0 auto;
-    background-color: rgba(44, 44, 44, 0.78);
+    background-color: rgba(0, 0, 0, 0.75);
   }
 </style>

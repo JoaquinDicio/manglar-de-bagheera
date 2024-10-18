@@ -1,5 +1,5 @@
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../db/fireabase.config";
+import { db } from "../../public/firebase.config";
 
 export default async function addLeads(nombre, email, mensaje) {
   try {

@@ -1,0 +1,199 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  description="Fiestas, shows en vivo, deliciosos tragos y comida excepcional en el manglar de Bagheera. ¡Descúbrelo ahora!"
+  keywords="manglar de bagheera,manglar,restaurante en valencia, gastronomia en valencia, fiestas valencia, shows en valencia, gastronomia, fiesta, eventos, salon de eventos"
+  title="el Manglar de Bagheera"
+  whatsapp={{
+    enabled: true,
+    href: "https://wa.me/34601528001?text=Hola%20Manglar!%20Queria%20informacion%20sobre...",
+  }}
+>
+  <section>
+    <h1>¡Bienvenido a la zona de premios!</h1>
+    <p>
+      <strong
+        >Después de dejarnos una opinión sobre tu experiencia, podrás jugar</strong
+      > para obtener increibles premios. ¡La suerte está de tu lado!
+    </p>
+    <form id="form" action="">
+        <a target="_blank" href="https://maps.app.goo.gl/XwkcGEGadDD5jZSD8" class="text-center main-button">¿QUE ES LO QUE MAS TE GUSTA DE MANGLAR?</a>
+      <label class="main-button file-button text-center" for="file"
+        >ADJUNTAR CAPTURA DE MI RESEÑA</label
+      >
+      <input class="invisible" name="file" id="file" type="file" />
+      <input required id="email" class="email" placeholder="EMAIL"  type="email">
+      <button id="jugar" disabled class="main-button">OBTENER PREMIO</button>
+    </form>
+    <div class="invisible" id="game-container">
+      <h2>¡Recoge tu premio!</h2>
+      <div class="prize-card">
+        <div class="icon-container">
+          ICONO DE PREMIO
+        </div>
+        <p id="prize-name">2x1 en algo</p>
+      </div>
+      <div class="prize-code">
+        <p>Utiliza este código para canjearlo</p>
+        <p>ABCDE123F</p>
+      </div>
+    </div>
+</section>
+</Layout>
+
+<script>
+    import JSConfetti from 'js-confetti'
+    
+    //================== LOGICA DEL SUBMIT ==================//
+    document.getElementById('form').addEventListener('submit',(e)=>{
+      e.preventDefault()
+
+      const gameContainer = document.getElementById('game-container')
+      const confetti = new JSConfetti()
+      confetti.addConfetti()
+      gameContainer.classList.toggle('invisible')
+
+      // guarda el codigo en localstorage y evita que tiren de nuevo
+      const prize = {code : 'ABCD123E'}
+      localStorage.setItem("miObjeto", JSON.stringify(prize));
+
+    })
+    //================== DESBLOQUEO DEL BOTON ==================//
+    const email = document.getElementById("email");
+    const fileInput = document.getElementById('file')
+    const jugarBtn = document.getElementById('jugar')
+
+    function checkForm() {
+      if (email.value && fileInput.files.length > 0) {
+        jugarBtn.disabled = false;
+      } else {
+        jugarBtn.disabled = true;
+      }
+    }
+  
+    // Verifica que ambos campos estén completos
+    fileInput.addEventListener("change", checkForm);
+    email.addEventListener("input", checkForm);
+</script>
+
+<style>
+    a{
+        text-decoration: none;
+    }
+  section {
+    height: 100vh;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  p,
+  h1,
+  h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  h1 {
+    font-size: 1.75rem;
+    font-weight: bolder;
+  }
+  p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  button {
+    cursor: pointer;
+  }
+  .main-button {
+    color: white;
+    background-color: var(--main-color);
+    font-weight: bolder;
+    border: none;
+    width: 300px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    margin
+  }
+  .main-button:disabled {
+    cursor: none;
+    background-color: grey;
+  }
+  form {
+    padding: 4rem 0;
+    display: flex;
+    gap:1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  input.email{
+    margin-top: 2rem;
+    padding: .75rem 1.25rem;
+    border-radius: 5px;
+    width: 300px;
+  }
+
+  /* ==== GAME CONTAINER ====*/
+  #game-container{
+    display: flex;
+    flex-direction: column;
+    padding: 3.5rem 2.5rem;
+    color: #ffff;
+    align-items: center;
+    position: absolute;
+    top:0;
+    width: 100%;
+    height: 100vh;  
+    background-color: rgba(0, 0, 0, 0.800);
+    align-items: center;
+  }
+  #game-container h2{
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  .prize-card{
+    background-color: var(--main-color);
+    border-radius: 10px;
+    width: 250px;
+    height: 300px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .prize-card .icon-container{
+    height:75%;
+    border-radius: 5px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .prize-card p {
+    font-size: 1.75rem;
+    font-weight: bolder;
+  }
+
+  .prize-code{
+    padding-top: 2rem;
+    text-align: center;
+  }
+  .prize-code p:first-of-type{
+    font-size: 1.25rem;
+  }
+
+  .prize-code p:last-child{
+    font-size: 2.75rem;
+    font-weight: bolder;
+  }
+  /* ==== UTILITIES ====*/
+  .invisible {
+    display: none !important;
+  }
+
+</style>

@@ -1,4 +1,4 @@
-import { db } from "../db/fireabase.config.js";
+import { db } from "../../public/firebase.config.js";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 
 export default async function getLeads() {

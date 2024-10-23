@@ -1,0 +1,210 @@
+---
+
+---
+
+<div class="invisible" id="game-container">
+  <h2>¡Juega para obtener tu premio!</h2>
+  <div class="prize-card">
+    <div class="icon-container">ICONO</div>
+    <p id="prize-name">???</p>
+  </div>
+  <button class="main-button" id="tirar">Jugar</button>
+  <div id="prize-code-info" class="prize-code invisible">
+    <p>Utiliza este código para canjearlo</p>
+    <p id="prize-code">ABCDE123F</p>
+  </div>
+</div>
+
+<script>
+  import JSConfetti from "js-confetti";
+  import {uploadPrize} from '../db/utils.js'
+
+  const confetti = new JSConfetti(); //incializa la instancia del confetti
+  const oldPrize = JSON.parse(localStorage.getItem('prize')) || null;
+
+  //================== SI YA EXISTE PREMIO EN LOCALSTORAGE ==================//
+  if (oldPrize){
+    document.getElementById('game-container').classList.remove('invisible')
+    document.getElementById('prize-code-info').classList.remove('invisible')
+    document.getElementById('prize-code').textContent = oldPrize.code
+    document.getElementById('prize-name').textContent = oldPrize.name
+    document.getElementById('tirar').classList.add('invisible')
+  }
+  
+  //================== LOGICA SELECCION DE PREMIO ==================//
+  const PRIZES = [
+    "Abanico del Manglar",
+    "Cachimba",
+    "Chupitos Gratis",
+    "Nachos",
+    "Papas Bravas",
+    "Tabla de Quesos",
+    "Cubata gratis",
+    "2x1 en Cubatas"
+  ];
+  const spinSound = new Audio("spin-sound.wav");
+
+  function handlePrizeSelection() {
+    document.getElementById("tirar").classList.add("invisible");
+
+    const prizeTxt = document.getElementById("prize-name");
+    let index = 0;
+    let delay = 30;
+    const maxDelay = 300;
+    const steps = 5;
+
+    function changePrize() {
+      prizeTxt.textContent = PRIZES[index];
+      index = (index + 1) % PRIZES.length;
+      spinSound.play();
+
+      delay += (maxDelay - delay) / steps; // Aumenta el delay progresivamente para ralentizar el cambio
+      if (delay < maxDelay - 20) {
+        //si el delay es menor que el maximo continua el ciclo
+        setTimeout(changePrize, delay);
+      } else {
+        // Cuando el ciclo termina, elige un premio final aleatorio
+        selectFinalPrize();
+      }
+    }
+    changePrize();
+  }
+
+  async function selectFinalPrize() {
+    //selecciona y muestra el premio final
+    const finalPrize = generateRandomPrize()
+    const prizeTxt = document.getElementById("prize-name");
+    prizeTxt.textContent = finalPrize;
+
+    //muestra el codigo del premio y confetti
+    const codeText = document.getElementById("prize-code");
+    const code = generateHexPrizeCode();
+    const email = document.getElementById('email').value
+    const prizeObj = {name: finalPrize,code: code, email: email}
+    codeText.textContent = code;
+
+    //genera un objeto y lo guarda en storage
+    localStorage.setItem('prize', JSON.stringify(prizeObj));
+    setTimeout(() => {
+      confetti.addConfetti();
+      document.getElementById("prize-code-info").classList.remove('invisible');
+    }, 500);
+
+    await uploadPrize(prizeObj,document.getElementById('file').files[0]) 
+
+  }
+
+  function generateRandomPrize() {
+      const random = Math.random() * 100;
+
+      switch (true) {
+          case random < 1: // 1% para "Cachimba"
+              return "Cachimba";
+          case random < 2: // 1% para "Chupitos Gratis"
+              return "Chupitos Gratis";
+          case random < 18: // 16% para "Nachos"
+              return "Nachos";
+          case random < 34: // 16% para "Papas Bravas"
+              return "Papas Bravas";
+          case random < 50: // 16% para "Tabla de Quesos"
+              return "Tablas de Quesos";
+          case random < 70: // 20% para "Abanico del Manglar"
+              return "Abanico del Manglar";
+          case random < 80: // 10% para "Cubata Gratis"
+              return "Cubata Gratis";
+          case random < 100: // 20% para "2x1 en cubatas"
+              return '2x1 en Cubatas'
+          default:
+              return "Buen intento!"; 
+      }
+  }
+
+  function generateHexPrizeCode() {
+    return Math.floor(Math.random() * 0xFFFFFF).toString(16).toUpperCase();
+  }
+
+  const playButton = document.getElementById("tirar");
+  playButton.addEventListener("click", (e) => handlePrizeSelection());
+</script>
+
+<style>
+    h2{
+        text-align: center;
+    }
+  /* ==== GAME CONTAINER ====*/
+  #game-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3.5rem 2.5rem;
+    color: #ffff;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    align-items: center;
+  }
+  #game-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  .prize-card {
+    background-color: var(--main-color);
+    border-radius: 10px;
+    width: 250px;
+    height: 300px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+  }
+  .prize-card .icon-container {
+    height: 75%;
+    border-radius: 5px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .prize-card p {
+    font-size: 1.75rem;
+    font-weight: bolder;
+  }
+
+  .prize-code {
+    padding-top: 2rem;
+    text-align: center;
+  }
+  .prize-code p:first-of-type {
+    font-size: 1.25rem;
+  }
+
+  #prize-name {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .prize-code p:last-child {
+    font-size: 2.75rem;
+    font-weight: bolder;
+  }
+
+  .main-button {
+    color: white;
+    background-color: var(--main-color);
+    font-weight: bolder;
+    border: none;
+    width: 250px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    margin
+  }
+  /* ==== UTILITIES ====*/
+  .invisible {
+    display: none !important;
+  }
+</style>

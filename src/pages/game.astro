@@ -1,4 +1,5 @@
 ---
+import GameContainer from "../components/GameContainer.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -25,41 +26,37 @@ import Layout from "../layouts/Layout.astro";
       >
       <input class="invisible" name="file" id="file" type="file" />
       <input required id="email" class="email" placeholder="EMAIL"  type="email">
+      <p id="error" class="invisible error"></p>
       <button id="jugar" disabled class="main-button">OBTENER PREMIO</button>
     </form>
-    <div class="invisible" id="game-container">
-      <h2>¡Recoge tu premio!</h2>
-      <div class="prize-card">
-        <div class="icon-container">
-          ICONO DE PREMIO
-        </div>
-        <p id="prize-name">2x1 en algo</p>
-      </div>
-      <div class="prize-code">
-        <p>Utiliza este código para canjearlo</p>
-        <p>ABCDE123F</p>
-      </div>
-    </div>
+    <GameContainer/>
+  </div>
 </section>
 </Layout>
 
 <script>
-    import JSConfetti from 'js-confetti'
-    
-    //================== LOGICA DEL SUBMIT ==================//
-    document.getElementById('form').addEventListener('submit',(e)=>{
+    import { verifyEmailIsAvailable } from "../db/utils";
+    //================== MOSTRAR GAME CONTAINER ==================//
+    document.getElementById('form').addEventListener('submit', async (e)=>{
       e.preventDefault()
+      
+      //verifica si el email ya tiene un premio asociado
+      const email = document.getElementById('email').value
+      document.getElementById('jugar').textContent = 'Verificando..'
+      const isValid = await verifyEmailIsAvailable(email)
+      document.getElementById('jugar').textContent = 'OBTENER PREMIO'
 
-      const gameContainer = document.getElementById('game-container')
-      const confetti = new JSConfetti()
-      confetti.addConfetti()
-      gameContainer.classList.toggle('invisible')
-
-      // guarda el codigo en localstorage y evita que tiren de nuevo
-      const prize = {code : 'ABCD123E'}
-      localStorage.setItem("miObjeto", JSON.stringify(prize));
-
+      if(isValid){
+        const gameContainer = document.getElementById('game-container')
+        gameContainer.classList.toggle('invisible')
+      }else{
+        const error = document.getElementById('error')
+        error.textContent = 'Ya haz recibido un premio anteriormente'
+        error.classList.remove('invisible')
+        document.getElementById('jugar').disabled = true;
+      }
     })
+
     //================== DESBLOQUEO DEL BOTON ==================//
     const email = document.getElementById("email");
     const fileInput = document.getElementById('file')
@@ -72,7 +69,6 @@ import Layout from "../layouts/Layout.astro";
         jugarBtn.disabled = true;
       }
     }
-  
     // Verifica que ambos campos estén completos
     fileInput.addEventListener("change", checkForm);
     email.addEventListener("input", checkForm);
@@ -187,9 +183,18 @@ import Layout from "../layouts/Layout.astro";
     font-size: 1.25rem;
   }
 
+  #prize-name{
+    color: white;
+    font-size: 1.25rem;
+  }
+
   .prize-code p:last-child{
     font-size: 2.75rem;
     font-weight: bolder;
+  }
+
+  p.error{
+    color: red;
   }
   /* ==== UTILITIES ====*/
   .invisible {

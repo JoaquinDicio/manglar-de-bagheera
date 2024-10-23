@@ -1,39 +1,79 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import getLeads from "../utils/getLeads.js";
-import AdminTable from "../components/AdminTable/AdminTable.jsx";
-let totalUsers = getTotalLeads() || 0;
-
-async function getTotalLeads() {
-  return (await getLeads()).length;
-}
 ---
 
 <Layout title="Admin" description="Admin panel">
   <section class="d-flex align-items-center flex-column">
-    <div class="dash-type dash-title">
-      <h2>Dashboard</h2>
-      <p class="total-users">
-        Se han registrado <span>{totalUsers}</span> clientes potenciales.
-      </p>
-    </div>
     <div class="dash-type">
-      <h2>Datos registrados</h2>
+      <h2>Canjeador de codigos</h2>
       <p>
-        Aqui podras ver los datos de aquellas personas que han completado el
-        formulario de tu sitio web.
+        Aqui podras verficiar a que premio equivale el código canjeado por tu
+        cliente
       </p>
-      <AdminTable client:visible />
+      <form id="code-form" action="post">
+        <input required type="text" id="code" placeholder="Codigo" />
+        <input id="trade" class="main-button" type="submit" value="Canjear" />
+        <p class="error invisible" id="error"></p>
+      </form>
+    </div>
+    <div class="dash-type invisible" id="prize-info">
+      <p>Premio: <span id="prize-name"></span></p>
+      <p>Email: <span id="prize-email"></span></p>
+      <p>Reseña:</p>
+      <img id="prize-img" src="" alt="captura de la reseña del usuario" />
     </div>
   </section>
 </Layout>
+
+<script>
+  import { getPrizeByCode, markAsUsed } from "../db/utils";
+
+  const form = document.getElementById("code-form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const code = document.getElementById("code").value;
+    document.getElementById("error").className = "error invisible"; //reinicia el estado del error
+
+    if (code) {
+      document.getElementById("trade").value = "Canjeando...";
+      const prize = await getPrizeByCode(code);
+
+      if (prize) {
+        //si ya esta usado mostramos el error
+        if (prize.used) {
+          showError("El premio ya ha sido canjeado");
+          document.getElementById("trade").value = "Canjear";
+          return;
+        }
+
+        document.getElementById("prize-name").textContent = prize.name;
+        document.getElementById("prize-email").textContent = prize.email;
+        document
+          .getElementById("prize-img")
+          .setAttribute("src", prize.imageUrl);
+        await markAsUsed(prize); // lo marcamos como utilizado
+        document.getElementById("prize-info").classList.remove("invisible");
+
+        document.getElementById("trade").value = "Canjear";
+      } else {
+        showError("El codigo ingresado no es valido");
+      }
+    }
+  });
+
+  function showError(text) {
+    document.getElementById("error").textContent = text;
+    document.getElementById("error").className = "error";
+  }
+</script>
 
 <style>
   section {
     background-color: #ebebeb;
     width: 100%;
-    min-height: 100vh;
     padding: 1rem;
+    min-height: 100vh;
   }
   div.dash-type {
     max-width: 800px;
@@ -59,5 +99,50 @@ async function getTotalLeads() {
     font-size: 1.5rem;
     color: var(--main-color);
     padding: 0.25rem;
+  }
+
+  form {
+    margin-top: 2rem;
+  }
+
+  input {
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    background-color: beige;
+  }
+
+  .main-button {
+    color: white;
+    background-color: var(--main-color);
+    font-weight: bolder;
+    width: 100%;
+    max-width: 244px;
+  }
+  .main-button:disabled {
+    cursor: none;
+    background-color: grey;
+  }
+
+  #prize-img {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  span {
+    font-size: 1.25rem;
+  }
+
+  .invisible {
+    display: none;
+  }
+
+  #error {
+    color: red;
+    font-size: 1.1rem;
+    padding-left: 0.25rem;
   }
 </style>
